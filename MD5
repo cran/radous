@@ -1,0 +1,8 @@
+2ff2acc341545423d732e4eb6b61dfb3 *DESCRIPTION
+04eda5d5896cfcf9845d5e190af140eb *LICENSE
+df390c53434517b304ac5db487184641 *NAMESPACE
+9ff0cc3bff7a2629596eb192b288bf08 *R/get_data.R
+a99fd3adef7611a2adbc82e3dd95ec08 *README.md
+6f003f26891c1b1e32339f668b88d619 *man/get_data.Rd
+d53947920d61dc0501b9f00014df1605 *tests/testthat.R
+616592ccf6665b73866e6b4acac50af5 *tests/testthat/test-test_get_data.R
