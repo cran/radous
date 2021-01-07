@@ -14,6 +14,14 @@
 get_data <- function(n = 1, seed = NULL) {
 
 
+checkmate::assert_number(n,
+                         na.ok = FALSE,
+                         lower = 0,
+                         upper = 5000,
+                         finite = TRUE)
+
+checkmate::assert_character(seed, null.ok = TRUE)
+
 link <- ifelse(is.null(seed),
 
 glue::glue("https://randomuser.me/api/?results={n}&format=csv"),
@@ -22,16 +30,39 @@ glue::glue("https://randomuser.me/api/?seed={seed}&results={n}&format=csv")
 
 )
 
+tryCatch(
 
-data <- httr::GET(link)
+  expr = {
 
-text <- httr::content(data, as = "text")
+    data <- httr::RETRY(
+      "GET",
+      link,
+      times = 3)
 
-data <- readr::read_csv(text)
 
-data <- janitor::clean_names(data)
+    text <- httr::content(data, as = "text")
 
-return(data)
+    data <- readr::read_csv(text)
+
+    data <- janitor::clean_names(data)
+
+    return(data)
+
+
+  },
+
+  error = function(cond){
+
+
+    message(paste0("Error: ", cond))
+
+    return(NA)
+
+  }
+
+
+)
+
 
 
 
